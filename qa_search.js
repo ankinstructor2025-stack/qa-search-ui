@@ -2,7 +2,8 @@
 // 設定
 // ==============================
 
-// Cloud Run の URL（末尾スラッシュなし）
+// Cloud Run にデプロイした API の URL
+// ※ 末尾の / は付けない
 const API_BASE_URL = "https://YOUR-CLOUD-RUN-URL";
 
 // API のパス
@@ -80,21 +81,11 @@ async function searchQA() {
   elResults.innerHTML = "";
 
   try {
-    // GET を優先
     const url = new URL(API_BASE_URL + API_PATH);
     url.searchParams.set("query", query);
     url.searchParams.set("top_k", topK);
 
-    let res = await fetch(url.toString());
-
-    // GET が失敗した場合は POST
-    if (!res.ok) {
-      res = await fetch(API_BASE_URL + API_PATH, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query, top_k: topK })
-      });
-    }
+    const res = await fetch(url.toString());
 
     if (!res.ok) {
       throw new Error(`API error: ${res.status}`);
@@ -117,5 +108,7 @@ async function searchQA() {
 
 elBtn.addEventListener("click", searchQA);
 elQuery.addEventListener("keydown", e => {
-  if (e.key === "Enter") searchQA();
+  if (e.key === "Enter") {
+    searchQA();
+  }
 });
