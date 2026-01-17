@@ -4,7 +4,7 @@
 
 // Cloud Run にデプロイした API の URL
 // ※ 末尾の / は付けない
-const API_BASE_URL = "https://YOUR-CLOUD-RUN-URL";
+const API_BASE_URL = "https://fast-search-api-986862757498.europe-west1.run.app";
 
 // API のパス
 const API_PATH = "/search";
