@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QA検索</title>
+
+  <style>
+    :root { --bg:#0b0f17; --panel:#121a27; --text:#e7eefc; --muted:#a7b3cc; --line:#243047; }
+    body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", sans-serif; background:var(--bg); color:var(--text); }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
+    h1 { font-size: 22px; margin: 0 0 12px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+    .row { display:flex; gap: 12px; flex-wrap: wrap; align-items: end; }
+    label { display:block; font-size: 12px; color: var(--muted); margin: 0 0 6px; }
+    input, select, button {
+      border-radius: 10px; border: 1px solid var(--line);
+      background: #0f1623; color: var(--text);
+      padding: 10px 12px; font-size: 14px;
+    }
+    input { width: min(520px, 100%); }
+    select { width: 140px; }
+    button { cursor:pointer; background:#173154; border-color:#27406a; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .hint { margin-top: 10px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .status { margin-top: 14px; color: var(--muted); font-size: 13px; }
+    .results { margin-top: 16px; display: grid; gap: 12px; }
+    .item { background:#0f1623; border:1px solid var(--line); border-radius: 12px; padding: 14px; }
+    .meta { display:flex; gap: 10px; flex-wrap: wrap; color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+    .q { font-weight: 700; margin: 0 0 6px; }
+    .a { margin: 0; white-space: pre-wrap; }
+    .small { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1>QA検索</h1>
+
+    <div class="card">
+      <div class="row">
+        <div>
+          <label for="query">検索キーワード</label>
+          <input id="query" type="text" placeholder="例：教育、IT、予算" />
+        </div>
+
+        <div>
+          <label for="topk">取得件数</label>
+          <select id="topk">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+
+        <div>
+          <button id="searchBtn">検索</button>
+        </div>
+      </div>
+
+      <div class="hint">
+        API の URL は <span class="small">qa_search.js</span> 内で設定します。
+      </div>
+
+      <div id="status" class="status"></div>
+      <div id="results" class="results"></div>
+    </div>
+  </div>
+
+  <!-- JS 読み込み -->
+  <script src="qa_search.js"></script>
+</body>
+</html>
